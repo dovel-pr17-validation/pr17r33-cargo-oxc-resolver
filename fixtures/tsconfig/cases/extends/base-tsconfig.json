@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "allowJs": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": true,
+    "rewriteRelativeImportExtensions": true,
+    "jsx": "react-jsx",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment",
+    "jsxImportSource": "react",
+    "outDir": "./dist",
+    "declarationDir": "./types",
+    "resolveJsonModule": true,
+    "checkJs": false
+  },
+  "files": ["files"],
+  "include": ["include"],
+  "exclude": ["exclude"]
+}

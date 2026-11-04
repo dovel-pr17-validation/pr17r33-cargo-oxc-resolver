@@ -1,0 +1,12 @@
+# Addresses a potential segmentation fault issue that occurs when
+# running napi-rs within a Node.js worker thread on GNU/Linux systems.
+# See https://x.com/Brooooook_lyn/status/1895848334692401270
+[target.'cfg(target_env = "gnu")']
+rustflags = ["-C", "link-args=-Wl,-z,nodelete"]
+
+[target.wasm32-wasip1-threads]
+rustflags = [
+  "-C",
+  "target-feature=+simd128",
+  "-Clink-args=-zstack-size=64000000 --max-memory=4294967296",
+]

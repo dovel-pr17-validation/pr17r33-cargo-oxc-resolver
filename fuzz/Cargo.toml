@@ -1,0 +1,23 @@
+[package]
+name = "resolver_fuzz"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+# Use independent workspace for fuzzers
+[workspace]
+members = ["."]
+
+[package.metadata]
+cargo-fuzz = true
+
+[[bin]]
+name = "resolver"
+path = "fuzz_targets/resolver.rs"
+test = false
+doc = false
+bench = false
+
+[dependencies]
+libfuzzer-sys = "0.4.7"
+oxc_resolver = { path = ".." }

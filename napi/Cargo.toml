@@ -1,0 +1,56 @@
+[package]
+name = "oxc_resolver_napi"
+version = "11.24.3"
+authors.workspace = true
+categories.workspace = true
+edition.workspace = true
+homepage.workspace = true
+include = ["src", "build.rs"]
+keywords.workspace = true
+license.workspace = true
+publish = true
+readme.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description.workspace = true
+
+[lib]
+crate-type = ["cdylib", "lib"]
+test = false
+doctest = false
+
+[dependencies]
+oxc_resolver = { workspace = true }
+
+napi = { version = "3.8", default-features = false, features = ["napi3", "serde-json"] }
+napi-derive = { version = "3" }
+regress = { version = "0.12" } # ECMAScript regex engine for `Restriction` regex
+tracing-subscriber = { version = "0.3.23", optional = true, default-features = false, features = [
+  "std",
+  "fmt",
+] } # Omit the `regex` feature
+
+[target.'cfg(not(any(target_os = "linux", target_os = "freebsd", target_arch = "arm", target_family = "wasm")))'.dependencies]
+mimalloc-safe = { version = "0.1.56", optional = true, features = ["skip_collect_on_exit"] }
+
+[target.'cfg(all(target_os = "linux", not(target_arch = "arm"), not(target_arch = "aarch64")))'.dependencies]
+mimalloc-safe = { version = "0.1.56", optional = true, features = [
+  "skip_collect_on_exit",
+  "local_dynamic_tls",
+] }
+
+[target.'cfg(all(target_os = "linux", target_arch = "aarch64"))'.dependencies]
+mimalloc-safe = { version = "0.1.56", optional = true, features = [
+  "skip_collect_on_exit",
+  "local_dynamic_tls",
+  "no_opt_arch",
+] }
+
+[build-dependencies]
+napi-build = "2.3.1"
+
+[features]
+default = ["tracing-subscriber", "yarn_pnp"]
+allocator = ["dep:mimalloc-safe"]
+tracing-subscriber = ["dep:tracing-subscriber"]
+yarn_pnp = ["oxc_resolver/yarn_pnp"]

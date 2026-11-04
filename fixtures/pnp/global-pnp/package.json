@@ -1,0 +1,7 @@
+{
+  "name": "global-pnp",
+  "packageManager": "yarn@4.17.1",
+  "dependencies": {
+    "source-map-support": "^0.5.21"
+  }
+}

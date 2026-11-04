@@ -1,0 +1,34 @@
+packages:
+  - npm
+  - napi
+  - fixtures/pnpm
+  - fixtures/tsconfck
+  - fixtures/pnpm/pnpm-workspace/**
+
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vite-plus: ^1.0.0
+
+ignoreScripts: true
+
+minimumReleaseAgeExclude:
+  - vite-plus
+  - "@voidzero-dev/*"
+  - "@napi-rs/cli@3.8.0"
+  - "@napi-rs/wasm-runtime@1.2.0"
+
+ignoredBuiltDependencies:
+  - esbuild
+
+overrides:
+  vite: "catalog:"
+
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: "*"
+    vitest: "*"
+
+virtualStoreDirMaxLength: 1024
